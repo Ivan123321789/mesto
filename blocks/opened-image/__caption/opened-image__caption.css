@@ -1,0 +1,8 @@
+.opened-image__caption {
+  margin-top: 10px;
+  font-size: 12px;
+  line-height: 1.21;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}

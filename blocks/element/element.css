@@ -1,0 +1,13 @@
+.element {
+  display: grid;
+  grid-template-columns: 1fr max-content;
+  grid-template-rows: 282px 1fr;
+  align-items: center;
+  justify-self: center;
+  width: 100%;
+  max-width: 480px;
+  min-height: 361px;
+  background-color: #fff;
+  border-radius: 10px;
+  position: relative;
+}
