@@ -1,0 +1,12 @@
+.error {
+    padding: 5px 0 13px;
+    color: #FF0000;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+    width: 360px;
+    display: block;
+    max-height: 0px; 
+}

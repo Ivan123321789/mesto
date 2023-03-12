@@ -1,0 +1,31 @@
+.popup__image {
+    max-height: calc(100vh - 2 * 90px);
+    max-width: calc(100vw - 2 * 232px);
+}
+
+@media screen and (max-width: 1024px) {
+    .popup__image {
+        max-width: calc(100vw - 2 * 100px);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .popup__image {
+        max-height: calc(100vh - 2 * 136px);
+        max-width: calc(100vw - 2 * 40px);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .popup__image {
+        max-height: calc(100vh - 2 * 136px);
+        max-width: calc(100vw - 2 * 40px);
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .popup__image {
+        max-height: calc(100vh - 2 * 136px);
+        max-width: 240px;
+    }
+}
