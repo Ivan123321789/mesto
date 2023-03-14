@@ -5,6 +5,8 @@ export default class FormValidator {
         this._submitButtonSelector = config.buttonSelector;
         this._inactiveButtonClass = config.buttonDisabledClass;
         this._inputErrorClass = config.errorClass;
+        this._buttonElement = this._formElement.querySelector(this._submitButtonSelector);
+        this._inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
     }
     _showInputError(inputElement, errorMessage) {
         const errorElement = this._formElement.querySelector(`#${inputElement.id}-error`);
@@ -26,14 +28,13 @@ export default class FormValidator {
         }
     }
     _toggleButtonState() {
-        const buttonElement = this._formElement.querySelector(this._submitButtonSelector);
         const isFormValid = this._formElement.checkValidity();
-        buttonElement.disabled = !isFormValid;
-        buttonElement.classList.toggle(this._inactiveButtonClass, !isFormValid);
+        this._buttonElement.disabled = !isFormValid;
+        this._buttonElement.classList.toggle(this._inactiveButtonClass, !isFormValid);
     }
     _setEventListeners() {
-        const inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
-        inputList.forEach((inputElement) => {
+       
+        this._inputList.forEach((inputElement) => {
             inputElement.addEventListener('input', () => {
                 this._checkInputValidity(inputElement);
                 this._toggleButtonState();
@@ -48,10 +49,19 @@ export default class FormValidator {
             }, 0);
         });
     }
+
+    resetValidation() {
+        this._toggleButtonState(); 
+  
+        this._inputList.forEach((inputElement) => {
+          this._hideInputError(inputElement) 
+        });
+  
+      } 
+
     enableValidation() {
-        this._formElement.addEventListener('submit', this._disableSubmit);
         this._setEventListeners();
         this._toggleButtonState();
-        this._formElement.dispatchEvent(new Event('input')); // эмулируем событие 'input' для первоначальной проверки валидности формы
+       
     }
 }  
