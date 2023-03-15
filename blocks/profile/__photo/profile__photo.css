@@ -1,7 +1,11 @@
 .profile__photo {
+    width: 120px;
     height: 120px;
-    border-radius: 100%;
+    border-radius: 50%;
     margin-right: 30px;
+    object-fit: cover;
+    object-position: center;
+    overflow: hidden;
 }
 
 @media screen and (max-width: 767px) {

@@ -21,15 +21,7 @@ export default class Card {
     _handleLikeClick() {
         this._likeButton.classList.toggle('elements__like_active');
     }
-    //_handleImageClick() {
-        //console.log('Open Image Popup!');
-        
-       // this._popupImage.src = this._link;
-        //this._popupImage.alt = this._name;
-       // this._popupSubtitle.textContent = this._name;
-      //  openPopup(showImage);
-    //}
-
+   
     _setEventListeners() {
         this._deleteButton.addEventListener('click', () => this._handleDeleteClick());
         this._likeButton.addEventListener('click', () => this._handleLikeClick());

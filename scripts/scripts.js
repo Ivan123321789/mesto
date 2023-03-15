@@ -1,9 +1,11 @@
 import Card from './Card.js';
+import FormValidator from './FormValidator.js';
+import {initialCards} from './initialCards.js';
 
 /* Константы */
 const buttonEdit = document.querySelector('.profile__edit-button'); // Кпопка редактирования профиля
 const buttonAdd = document.querySelector('.profile__add-button'); // Кнопка открытия окна добавления карточки
-const profilePopup = document.querySelector('.popup-edit'); // Модальное окно редактирования профиля
+const profilePopup = document.querySelector('.popup__edit-profile'); // Модальное окно редактирования профиля
 const formProfile = document.querySelector('.popup__edit-form'); // Форма редактирования профиля в DOM
 const formCard = document.querySelector('.popup__add-form');
 const popupAddCard = document.querySelector('.popup__add-card'); // Форма добавления карточки в DOM
@@ -15,10 +17,9 @@ const popupImage = showImage.querySelector('.popup__image');
 const popupSubtitle =  showImage.querySelector('.popup__subtitle-image');
 
 const elementsContainer = document.querySelector(".elements"); // Секция с карточками
-//const buttonAddCard = document.querySelector("#buttonCreate"); // Кнопка "Создать" в модальном окне добавления карточек
+
 const placeName = document.querySelector("#placeName"); // Поле ввода с названием места новой карточки 
 const imageLink = document.querySelector("#imageLink"); // Поле ввода ссылки на изображение новой карточки
-//const templateCard = document.querySelector("#templateCard"); // Заготовка для вставки новой карточки
 
 const nameElement = document.querySelector('.profile__title'); // Значение имени в HTML
 const jobElement = document.querySelector('.profile__description'); // Значение описания в HTML
@@ -69,12 +70,14 @@ function closePopup(element) { // Функция удаления видимос
   document.removeEventListener('keydown', handleEscape);
 }
 function openProfilePopup() { // Функция добавления класса "видимости" модальному окну редактирования профиля
+  formValidatorProfile.resetValidation();
   nameInput.value = nameElement.textContent;
   jobInput.value = jobElement.textContent;
   openPopup(profilePopup);
 }
 function openAddForm() { // Функция добавления класса "видимости" модальному окну добавления карточки
-  formCard.resetValidation();
+  formCard.reset();
+  formValidatorCard.resetValidation();
   openPopup(popupAddCard);
 }
 function handleProfileFormSubmit(evt) {
@@ -87,37 +90,15 @@ function addCard(evt) { // Функция добавления новой кар
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
   const cardElement = createCard(placeName.value, imageLink.value);
   elementsContainer.prepend(cardElement);
-  evt.target.reset()
   closePopup(popupAddCard);
 }
-// function deleteElement(btn) { // Фукция удаления карточки
-//   btn.closest(".elements__element").remove();
-// }
-// function toggleLike(card) { // Функция активации / деактивации кнопки like
-//   card.classList.toggle("elements__like_active");
-// }
-// function showImagePopup(image) { // Функция показа выбранного изображения
-//   popupImage.src = image.src;
-//   popupImage.alt = image.alt;
-//   popupSubtitle.textContent = image.alt;
-//   openPopup(showImage);
-// }
-// function addStartCards(elements) { // Функция добавления изначальных карточек
-//   elements.forEach(({ name, link }) => {
-//     createStartCard(name, link);
-//   })
-// }
+
 function addStartCards(element) {
   element.forEach(({ name, link }) => {
-    //const card = new Card({name, link}, '#templateCard');
-    //const cardElement = card.generateCard();
-    elementsContainer.prepend(createCard(name, link));
+  elementsContainer.prepend(createCard(name, link));
   });
 }
-// function createStartCard(name, link) { // Функция добавления одной изначальной карточки
-//   const cardElement = createCard(name, link);
-//   elements.prepend(cardElement); // Добавление дублированной заготовки в начало секции
-// }
+
 function createCard(name, link) {
   const card = new Card({ name, link }, '.template-card', handleOpenPopupImage);
   return card.generateCard();
@@ -125,7 +106,7 @@ function createCard(name, link) {
 
 /* События */
 buttonEdit.addEventListener('click', openProfilePopup); // Нажатие на кнопку редактирования
-profileForm.addEventListener('submit', handleProfileFormSubmit); // Нажатие на кнопку "Сохранить"
+formProfile.addEventListener('submit', handleProfileFormSubmit); // Нажатие на кнопку "Сохранить"
 buttonAdd.addEventListener('click', openAddForm); // Нажатие на кнопку добавления карточки
 popupAddCard.addEventListener('submit', addCard); // Нажатие на кнопку "Создать"
 

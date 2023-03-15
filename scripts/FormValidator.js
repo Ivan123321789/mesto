@@ -40,14 +40,7 @@ export default class FormValidator {
                 this._toggleButtonState();
             });
         });
-        this._formElement.addEventListener('reset', () => {
-            setTimeout(() => {
-                inputList.forEach((inputElement) => {
-                    this._hideInputError(inputElement);
-                });
-                this._toggleButtonState();
-            }, 0);
-        });
+        
     }
 
     resetValidation() {
