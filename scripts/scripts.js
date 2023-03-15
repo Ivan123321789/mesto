@@ -5,14 +5,14 @@ import {initialCards} from './initialCards.js';
 /* Константы */
 const buttonEdit = document.querySelector('.profile__edit-button'); // Кпопка редактирования профиля
 const buttonAdd = document.querySelector('.profile__add-button'); // Кнопка открытия окна добавления карточки
-const profilePopup = document.querySelector('.popup__edit-profile'); // Модальное окно редактирования профиля
+const profilePopup = document.querySelector('.popup_edit-profile'); // Модальное окно редактирования профиля
 const formProfile = document.querySelector('.popup__edit-form'); // Форма редактирования профиля в DOM
 const formCard = document.querySelector('.popup__add-form');
-const popupAddCard = document.querySelector('.popup__add-card'); // Форма добавления карточки в DOM
+const popupAddCard = document.querySelector('.popup_add-card'); // Форма добавления карточки в DOM
 
 const popupList = document.querySelectorAll('.popup'); // Массив попапов
 
-const showImage = document.querySelector('.popup__open-image');
+const showImage = document.querySelector('.popup_open-image');
 const popupImage = showImage.querySelector('.popup__image');
 const popupSubtitle =  showImage.querySelector('.popup__subtitle-image');
 
