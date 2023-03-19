@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta
+			name="Description"
+			content="Проектная работа №7 - Mesto. Russia. Автор - Иван Смирнов."
+		/>
+		<!-- <link rel="stylesheet" href="./src/pages/index.css" /> -->
+		<title>Mesto. Russia</title>
+	</head>
+	<body class="root">
+		<header class="header">
+			<img
+				class="header__logo"
+				src="<%=require('./images/logo-header.svg')%>"
+				alt="Логотип"
+			/>
+		</header>
+		<main>
+			<section class="profile">
+				<div class="profile__content">
+					<img
+						class="profile__photo"
+						src="<%=require('./images/profile-photo.jpg')%>"
+						alt="Фото профиля"
+					/>
+					<div class="profile__item">
+						<div class="profile__info">
+							<h1 class="profile__title">Юрий Гагарин</h1>
+							<button
+								type="button"
+								class="profile__edit-button"
+								aria-label="Кнока редактирования профиля"
+							></button>
+						</div>
+						<p class="profile__description">Первый человек в космосе</p>
+					</div>
+				</div>
+				<button
+					type="button"
+					class="profile__add-button"
+					aria-label="Кнока добавления карточки"
+				></button>
+			</section>
+			<section class="elements">
+				<!-- Карточки добавляются с помощью скрипта через цикл и через функцию добавления карточек вручную -->
+			</section>
+		</main>
+		<footer class="footer">
+			<p class="footer__copyright">&copy; 2023 Mesto Russia</p>
+		</footer>
+		<div class="popup popup_edit-profile">
+			<div class="popup__content">
+				<form class="popup__edit-form popup__form" name="edit-form" novalidate>
+					<h2 class="popup__title">Редактировать профиль</h2>
+					<input
+						required
+						type="text"
+						id="name"
+						name="name"
+						class="popup__input"
+						minlength="2"
+						maxlength="40"
+					/>
+					<span id="name-error" class="error"></span>
+					<input
+						required
+						type="text"
+						id="about"
+						name="about"
+						class="popup__input"
+						minlength="2"
+						maxlength="200"
+					/>
+					<span id="about-error" class="error"></span>
+					<button
+						type="submit"
+						class="popup__button-submit"
+						aria-label="Кнопка сохранения"
+						>Сохранить</button
+					>
+					<button
+						type="button"
+						class="popup__close-icon"
+						aria-label="Кнопка закрытия"
+					></button>
+				</form>
+			</div>
+		</div>
+		<div class="popup popup_add-card">
+			<div class="popup__content">
+				<form class="popup__add-form popup__form" name="add-form" novalidate>
+					<h2 class="popup__title">Новое место</h2>
+					<input
+						required
+						type="text"
+						id="placeName"
+						name="name"
+						class="popup__input"
+						placeholder="Название"
+						minlength="2"
+						maxlength="30"
+					/>
+					<span id="placeName-error" class="error"></span>
+					<input
+						required
+						type="url"
+						id="imageLink"
+						name="link"
+						class="popup__input"
+						placeholder="Ссылка на изображение"
+					/>
+					<span id="imageLink-error" class="error"></span>
+					<button
+						type="submit"
+						class="popup__button-submit"
+						aria-label="Кнопка создания"
+						id="buttonCreate"
+					>
+						Создать
+					</button>
+					<button
+						type="button"
+						class="popup__close-icon"
+						id="add-form-close-icon"
+						aria-label="Кнопка закрытия"
+					></button>
+				</form>
+			</div>
+		</div>
+
+		<div class="popup popup_open-image">
+			<div class="popup__content">
+				<form class="popup__image-form">
+					<button
+						type="button"
+						class="popup__close-icon"
+						id="cardImageClose"
+					></button>
+					<img
+						src="./images/element_karachaevsk.jpg"
+						alt=""
+						class="popup__image"
+					/>
+					<h2 class="popup__subtitle-image">попап</h2>
+				</form>
+			</div>
+		</div>
+
+		<template class="template-card">
+			<div class="elements__element">
+				<img class="elements__image" src="#" alt="Фото добавленного места" />
+				<div class="elements__element-title">
+					<h2 class="elements__text"></h2>
+					<button
+						class="elements__like"
+						type="button"
+						aria-label="Кнопка like"
+					></button>
+				</div>
+				<button
+					class="elements__delete"
+					type="button"
+					aria-label="Кнока Delete"
+				></button>
+			</div>
+		</template>
+		<!-- <script type="module" src="./src/scripts/script.js"></script> -->
+	</body>
+</html>
