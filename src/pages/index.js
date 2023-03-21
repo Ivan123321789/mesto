@@ -6,13 +6,16 @@ import {PopupWithImage} from '../components/PopupWithImage.js';
 import {PopupWithForm} from '../components/PopupWithForm.js';
 import {UserInfo} from '../components/UserInfo.js';
 import {initialCards} from '../utils/initialCards.js';
-import {buttonEdit, buttonAdd, formProfile, formCard, nameInput, jobInput, formValidationConfig} from '../utils/constans.js';
+import {buttonEdit, buttonAdd, buttonAvatar, formProfile, formCard, formAvatar, nameInput, jobInput, avatarInput, formValidationConfig} from '../utils/constans.js';
 
 const formValidatorProfile = new FormValidator(formValidationConfig, formProfile); // Экземпляр валидации формы профиля
 formValidatorProfile.enableValidation();
 
 const formValidatorCard = new FormValidator(formValidationConfig, formCard); // Экземпляр валидации формы добавления карточки
 formValidatorCard.enableValidation();
+
+const formValidatorAvatar = new FormValidator(formValidationConfig, formAvatar); // Экземпляр валидации формы смены аватара
+formValidatorAvatar.enableValidation();
 
 const popupShowImage = new PopupWithImage('.popup_open-image'); // Создание экземпляра класса папапа просмотра картинки
 popupShowImage.setEventListeners();
@@ -37,14 +40,14 @@ const elementsContainer = new Section({
 
 elementsContainer.renderItems();  //  Вызов метода отрисовки массива карточек
 
-const callbackFormSubmitCard = (data) => {   // Колбэк, связывающий классы Секции, Карты и Попапа добавления новой карты
+const handleFormSubmitCard = (data) => {   // Колбэк, связывающий классы Секции, Карты и Попапа добавления новой карты
   const newCardElement = createCard(data);
   elementsContainer.addItemPrepend(newCardElement);
   popupAddCard.close();
 }
 const popupAddCard = new PopupWithForm({    // Создание экземпляра Попапа добавления новой карты
   popupSelector: '.popup_add-card', 
-  callbackFormSubmit: callbackFormSubmitCard}); 
+  callbackFormSubmit: handleFormSubmitCard}); 
 
 popupAddCard.setEventListeners();
 
@@ -54,9 +57,10 @@ buttonAdd.addEventListener('click', () => {   //  Слушатель событ�
   popupAddCard.open();
 });
 
-const userProfile = new UserInfo(     //  Сщздание объекта с данными пользователя
-  {userNameSelector:'.profile__title', 
-   userAboutSelector:'.profile__description'});
+const userProfile = new UserInfo({     //  Создание объекта с данными пользователя
+    userNameSelector: '.profile__title', 
+    userAboutSelector: '.profile__description',
+    userAvatarSelector: '.profile__photo'});
 
 const handleFormSubmitProfile = (data) => {   // Колбэк, связывающий классы ЮзерИнфо и Попапа редактирования профиля
   userProfile.setUserInfo(data);
@@ -74,4 +78,21 @@ buttonEdit.addEventListener('click', () => {     //  Слушатель собы
   jobInput.value = dataUserProfile.about;
   formValidatorProfile.resetValidation();
   popupEditProfile.open();  
+});
+
+const handleFormSubmitAvatar = (data) => {
+  userProfile.setUserAvatar(data);
+  popupChangeAvatar.close();
+}
+const popupChangeAvatar = new PopupWithForm({    // Создание экземпляра Попапа изменения аватара
+  popupSelector: '.popup_change-avatar',
+  callbackFormSubmit: handleFormSubmitAvatar
+});
+popupChangeAvatar.setEventListeners();
+
+buttonAvatar.addEventListener('click', () => {
+  const dataUserProfile = userProfile.getUserInfo();
+  // avatarInput.value = dataUserProfile.avatar;
+  formValidatorAvatar.resetValidation();
+  popupChangeAvatar.open();
 });
