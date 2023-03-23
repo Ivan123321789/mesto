@@ -7,6 +7,30 @@ import {PopupWithForm} from '../components/PopupWithForm.js';
 import {UserInfo} from '../components/UserInfo.js';
 import {initialCards} from '../utils/initialCards.js';
 import {buttonEdit, buttonAdd, buttonAvatar, formProfile, formCard, formAvatar, nameInput, jobInput, avatarInput, formValidationConfig} from '../utils/constans.js';
+import {Api} from '../components/Api.js';
+
+const api = new Api({
+  url: "https://mesto.nomoreparties.co/v1/cohort-61",
+  headers: {
+    authorization: "8b330631-1fca-4744-b015-50bbb705af05",
+    "Content-Type": "application/json",
+  }
+})
+
+let userId = "";
+
+api.getPromiseAll()                               // Запрос на сервер для получения необходимой информации
+  .then(([serverCards, userData]) => {
+    console.log(serverCards);
+    console.log(userData);
+    userProfile.setUserInfo(userData);            //  Получение информации о пользователе с сервера
+    userProfile.setUserAvatar(userData);          //  Получение аватара с сервера 
+    userId = userData._id;
+    elementsContainer.renderItems(serverCards);   //  Вызов метода отрисовки массива карточек c сервера
+  })
+  .catch((err) => {
+    console.log(`Ошибка: ${err}`);
+})
 
 const formValidatorProfile = new FormValidator(formValidationConfig, formProfile); // Экземпляр валидации формы профиля
 formValidatorProfile.enableValidation();
@@ -38,12 +62,16 @@ const elementsContainer = new Section({
   }
 }, ".elements");
 
-elementsContainer.renderItems();  //  Вызов метода отрисовки массива карточек
+// elementsContainer.renderItems();  //  Вызов метода отрисовки массива карточек
 
 const handleFormSubmitCard = (data) => {   // Колбэк, связывающий классы Секции, Карты и Попапа добавления новой карты
-  const newCardElement = createCard(data);
-  elementsContainer.addItemPrepend(newCardElement);
-  popupAddCard.close();
+  api.postCard(data)
+  .then((res) => {
+    const newCardElement = createCard(data);
+    elementsContainer.addItemPrepend(newCardElement);
+    popupAddCard.close();
+  })
+  .catch(err => console.log(err))
 }
 const popupAddCard = new PopupWithForm({    // Создание экземпляра Попапа добавления новой карты
   popupSelector: '.popup_add-card', 
@@ -63,8 +91,12 @@ const userProfile = new UserInfo({     //  Создание объекта с д
     userAvatarSelector: '.profile__photo'});
 
 const handleFormSubmitProfile = (data) => {   // Колбэк, связывающий классы ЮзерИнфо и Попапа редактирования профиля
-  userProfile.setUserInfo(data);
-  popupEditProfile.close();
+  api.changeProfile(data)
+    .then((res) => {
+      userProfile.setUserInfo(res);
+      popupEditProfile.close();
+    })
+    .catch(err => console.log(err))
 }
 
 const popupEditProfile = new PopupWithForm({   //  Создание экземпляра Попапа редактирования профиля
@@ -81,8 +113,12 @@ buttonEdit.addEventListener('click', () => {     //  Слушатель собы
 });
 
 const handleFormSubmitAvatar = (data) => {
-  userProfile.setUserAvatar(data);
-  popupChangeAvatar.close();
+  api.changeAvatar(data)
+    .then((res) => {
+      userProfile.setUserAvatar(res);
+      popupChangeAvatar.close();
+    })
+    .catch(err => console.log(err))
 }
 const popupChangeAvatar = new PopupWithForm({    // Создание экземпляра Попапа изменения аватара
   popupSelector: '.popup_change-avatar',
