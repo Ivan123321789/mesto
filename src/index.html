@@ -188,6 +188,33 @@
 				</form>
 			</div>
 		</div>
+		<!-- Попап подтверждения удаления -->
+		<div class="popup popup_delete-card">
+			<div class="popup__content">
+				<form
+					class="popup__delete-form popup__form"
+					name="avatar-form"
+					novalidate
+				>
+					<h2 class="popup__title">Вы уверены?</h2>
+					<button
+						type="submit"
+						class="popup__button-submit"
+						aria-label="Кнопка подтверждения удаления"
+						id="buttonDelete"
+					>
+						Да
+					</button>
+					<button
+						type="button"
+						class="popup__close-icon"
+						id="avatar-form-close-icon"
+						aria-label="Кнопка закрытия"
+					></button>
+				</form>
+			</div>
+		</div>
+		<!-- темплейт карточки -->
 		<template class="template-card">
 			<div class="elements__element">
 				<img class="elements__image" src="#" alt="Фото добавленного места" />

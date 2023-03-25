@@ -3,6 +3,7 @@
     background-color: #FFFFFF;
     color: #000000;
     max-width: 430px;
+    width: 358px;
     border-radius: 10px;
     padding: 34px 36px 37px;
     position: relative;
@@ -11,7 +12,7 @@
 
 @media screen and (max-width: 767px) {
     .popup__edit-form {
-        max-width: 282px;
-        padding: 25px 22px;
+        width: 238px;
+        padding: 25px 22px 25px 22px;
     }
 }
