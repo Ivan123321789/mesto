@@ -18,6 +18,7 @@ const api = new Api({
   }
 })
 
+<<<<<<< HEAD
 const userProfile = new UserInfo({                //  Создание объекта с данными пользователя
   userNameSelector: '.profile__title', 
   userAboutSelector: '.profile__description',
@@ -33,6 +34,10 @@ const elementsContainer = new Section({
   }
 }, ".elements");
 
+=======
+let userId = "";
+
+>>>>>>> cfce4361c6d819270225acf31b0125e4996deb75
 api.getPromiseAll()                               // Запрос на сервер для получения необходимой информации
   .then(([serverCards, userData]) => {
     console.log(serverCards);
@@ -42,7 +47,13 @@ api.getPromiseAll()                               // Запрос на серв�
     userId = userData._id;
     elementsContainer.renderItems(serverCards);   //  Вызов метода отрисовки массива карточек c сервера
   })
+<<<<<<< HEAD
   .catch(err => console.log(err))
+=======
+  .catch((err) => {
+    console.log(`Ошибка: ${err}`);
+})
+>>>>>>> cfce4361c6d819270225acf31b0125e4996deb75
 
 const formValidatorProfile = new FormValidator(formValidationConfig, formProfile); // Экземпляр валидации формы профиля
 formValidatorProfile.enableValidation();
@@ -97,6 +108,28 @@ function createCard(item) {                     // Создание экземп
   return card.generateCard();
 }
 
+<<<<<<< HEAD
+=======
+const elementsContainer = new Section({   
+  items: initialCards,
+  renderer: (item) => {
+    const cardElement = createCard(item);
+    elementsContainer.addItemAppend(cardElement);
+  }
+}, ".elements");
+
+// elementsContainer.renderItems();  //  Вызов метода отрисовки массива карточек
+
+const handleFormSubmitCard = (data) => {   // Колбэк, связывающий классы Секции, Карты и Попапа добавления новой карты
+  api.postCard(data)
+  .then((res) => {
+    const newCardElement = createCard(data);
+    elementsContainer.addItemPrepend(newCardElement);
+    popupAddCard.close();
+  })
+  .catch(err => console.log(err))
+}
+>>>>>>> cfce4361c6d819270225acf31b0125e4996deb75
 const popupAddCard = new PopupWithForm({    // Создание экземпляра Попапа добавления новой карты
   popupSelector: '.popup_add-card', 
   callbackFormSubmit: (data) => { 
@@ -117,6 +150,23 @@ buttonAdd.addEventListener('click', () => {
   popupAddCard.open();
 });
 
+<<<<<<< HEAD
+=======
+const userProfile = new UserInfo({     //  Создание объекта с данными пользователя
+    userNameSelector: '.profile__title', 
+    userAboutSelector: '.profile__description',
+    userAvatarSelector: '.profile__photo'});
+
+const handleFormSubmitProfile = (data) => {   // Колбэк, связывающий классы ЮзерИнфо и Попапа редактирования профиля
+  api.changeProfile(data)
+    .then((res) => {
+      userProfile.setUserInfo(res);
+      popupEditProfile.close();
+    })
+    .catch(err => console.log(err))
+}
+
+>>>>>>> cfce4361c6d819270225acf31b0125e4996deb75
 const popupEditProfile = new PopupWithForm({   //  Создание экземпляра Попапа редактирования профиля
   popupSelector: '.popup_edit-profile', 
   callbackFormSubmit: (data) => { 
@@ -138,6 +188,17 @@ buttonEdit.addEventListener('click', () => {
   popupEditProfile.open();  
 });
 
+<<<<<<< HEAD
+=======
+const handleFormSubmitAvatar = (data) => {
+  api.changeAvatar(data)
+    .then((res) => {
+      userProfile.setUserAvatar(res);
+      popupChangeAvatar.close();
+    })
+    .catch(err => console.log(err))
+}
+>>>>>>> cfce4361c6d819270225acf31b0125e4996deb75
 const popupChangeAvatar = new PopupWithForm({    // Создание экземпляра Попапа изменения аватара
   popupSelector: '.popup_change-avatar',
   callbackFormSubmit: (data) => {
