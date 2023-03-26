@@ -100,7 +100,7 @@ function createCard(item) {                     // Создание экземп
 const popupAddCard = new PopupWithForm({    // Создание экземпляра Попапа добавления новой карты
   popupSelector: '.popup_add-card', 
   callbackFormSubmit: (data) => { 
-    popupAddCard.loading(true, "Создать");
+    popupAddCard.loading(true);
     api.postCard(data)
     .then((res) => {
       const newCardElement = createCard(res);
@@ -108,11 +108,10 @@ const popupAddCard = new PopupWithForm({    // Создание экземпля
       popupAddCard.close();
     })
     .catch(err => console.log(err))
-    .finally(() => {popupAddCard.loading(false)})
+    .finally(() => {popupAddCard.loading(false, "Создать")})
   }}); 
 popupAddCard.setEventListeners();
 buttonAdd.addEventListener('click', () => {   
-  formCard.reset();
   formValidatorCard.resetValidation();
   popupAddCard.open();
 });
@@ -120,14 +119,14 @@ buttonAdd.addEventListener('click', () => {
 const popupEditProfile = new PopupWithForm({   //  Создание экземпляра Попапа редактирования профиля
   popupSelector: '.popup_edit-profile', 
   callbackFormSubmit: (data) => { 
-    popupEditProfile.loading(true, "Сохранить") 
+    popupEditProfile.loading(true) 
     api.changeProfile(data)
       .then((res) => {
         userProfile.setUserInfo(res);
         popupEditProfile.close();
       })
       .catch(err => console.log(err))
-      .finally(() => {popupEditProfile.loading(false)})
+      .finally(() => {popupEditProfile.loading(false, "Сохранить")})
   }});
 popupEditProfile.setEventListeners();
 buttonEdit.addEventListener('click', () => {     
@@ -141,14 +140,14 @@ buttonEdit.addEventListener('click', () => {
 const popupChangeAvatar = new PopupWithForm({    // Создание экземпляра Попапа изменения аватара
   popupSelector: '.popup_change-avatar',
   callbackFormSubmit: (data) => {
-    popupChangeAvatar.loading(true, "Сохранить");
+    popupChangeAvatar.loading(true);
     api.changeAvatar(data)
       .then((res) => {
         userProfile.setUserAvatar(res);
         popupChangeAvatar.close();
       })
       .catch(err => console.log(err))
-      .finally(() => {popupChangeAvatar.loading(false)})
+      .finally(() => {popupChangeAvatar.loading(false, "Сохранить")})
   }
 });
 popupChangeAvatar.setEventListeners();
